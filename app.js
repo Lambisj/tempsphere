@@ -408,3 +408,18 @@ function removeCityFromHistory(city) {
   cityHistory = cityHistory.filter(c => c.toLowerCase() !== city.toLowerCase());
   localStorage.setItem('cityHistory', JSON.stringify(cityHistory));
 }
+
+function fetchWeatherByCoords(lat, lon) {
+  fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`)
+    .then(res => res.json())
+    .then(data => {
+      displayWeather(data);
+      setBackgroundAndBox(data.weather[0].main.toLowerCase());
+      saveCityToHistory(data.name);
+    })
+    .catch(err => {
+      alert("Failed to get weather for your location");
+      console.error(err);
+    });
+}
+
