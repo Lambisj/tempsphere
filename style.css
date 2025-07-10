@@ -313,24 +313,25 @@ h1 {
 }
 
 /* Dark Mode Toggle Button */
-.theme-toggle {
+#themeToggle {
   position: absolute;
   top: 20px;
   right: 20px;
-  padding: 8px 12px;
+  font-size: 14px;
+  padding: 6px 10px;
   border: none;
   border-radius: 8px;
-  background-color: #444;
-  color: #fff;
-  font-size: 14px;
+  background-color: #2778c4;
+  color: white;
   cursor: pointer;
-  z-index: 100;
-  transition: background-color 0.3s ease;
+  z-index: 10;
+  transition: background 0.3s ease;
 }
 
-.theme-toggle:hover {
-  background-color: #666;
+#themeToggle:hover {
+  background-color: #4a90e2;
 }
+
 
 
 
@@ -458,4 +459,39 @@ body.dark-mode .details-panel {
 .weather-header .city-name {
   font-size: 20px;
   font-weight: 500;
+}
+
+/* For mobile */
+@media (max-width: 600px) {
+  #searchContainer {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  #inputRow {
+    flex-direction: column;
+    width: 100%;
+    gap: 5px;
+  }
+
+  #searchBtn, #geoBtn {
+    width: 90%;
+    font-size: 16px;
+  }
+
+  #themeToggle {
+    position: static;
+    margin: 10px auto;
+    display: block;
+  }
+
+  #weather h2, #weather p {
+    text-align: center;
+  }
+
+  .forecast-day {
+    flex: 1 1 100%;
+    margin-bottom: 10px;
+  }
 }
