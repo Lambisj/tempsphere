@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>TempSphere Weather App</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<h1>TempSphere</h1>
+<button id="themeToggle" class="theme-toggle">🌙 Dark Mode</button>
+
+
+<div id="searchContainer">
+  <div id="inputRow">
+    <div id="inputWrapper">
+      <input type="text" id="cityInput" placeholder="Type city name" lang="el" />
+      <div id="historyDropdown" class="dropdown-history"></div>
+    </div>
+    <button id="searchBtn">Search</button>
+  </div>
+
+  <button id="geoBtn">
+    <span class="geo-icon">📍</span> Use My Location
+  </button>
+</div>
+
+
+<div id="weather" class="weather-box box-default"></div>
+<div id="forecast" class="forecast-box"></div>
+<div id="dayDetails" class="day-details"></div>
+
+
+<div id="favoritesList" class="weather-box box-default">
+  <h3>Favorites</h3>
+  <div id="favButtons"></div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

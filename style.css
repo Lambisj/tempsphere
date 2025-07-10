@@ -1,0 +1,461 @@
+/*  General  */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #ffd3a0 0%, #ACB6E5 100%);
+  color: #333;
+  margin: 20px;
+  min-height: 100vh;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+/*  Search */
+#searchContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+#cityInput {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px 0 0 5px;
+  border: 1px solid #ccc;
+  width: 200px;
+}
+
+#searchBtn {
+  padding: 10px 16px;
+  font-size: 17px;
+  background-color: #2778c4;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#searchBtn:hover {
+  background-color: #37adfc;
+}
+
+/*  Weather Box */
+.weather-box {
+  width: 100%;
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 20px 25px;
+  border-radius: 14px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.4s ease, color 0.4s ease;
+  box-sizing: border-box;
+}
+
+.weather-box h2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+.weather-box p {
+  margin: 6px 0;
+  text-align: center;
+  font-size: 16px;
+}
+
+.weather-box h2 img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.5));
+  animation: floatIcon 3s ease-in-out infinite;
+  transition: transform 0.3s ease;
+}
+
+.weather-box h2 img:hover {
+  transform: scale(1.05);
+}
+
+
+
+
+@keyframes floatIcon {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Weather Types  */
+.box-clear {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #222;
+  border: 1px solid #ccc;
+}
+
+.box-rain {
+  background-color: rgba(0, 0, 50, 0.8);
+  color: white;
+  border: 1px solid #003366;
+}
+
+.box-clouds {
+  background-color: rgba(44, 62, 80, 0.85);
+  color: white;
+  border: 1px solid #2c3e50;
+}
+
+.box-snow {
+  background-color: rgba(230, 230, 255, 0.9);
+  color: #222;
+  border: 1px solid #bbb;
+}
+
+.box-thunderstorm {
+  background-color: rgba(50, 50, 50, 0.85);
+  color: white;
+  border: 1px solid #111;
+}
+
+.box-default {
+  background-color: rgba(255, 255, 255, 0.95);
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+/* Save Button */
+#saveFavoriteBtn {
+  display: block;
+  margin: 20px auto 0;
+  padding: 10px 20px;
+  background-color: #2778c4;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+#saveFavoriteBtn:hover {
+  background-color: #37adfc;
+  transform: scale(1.05);
+}
+
+/*  Favorites List  */
+#favoritesList h3 {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 20px;
+  color: inherit;
+}
+
+#favButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+/* City Buttons */
+.fav-city-btn {
+  background-color: #2778c4;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.fav-city-btn:hover {
+  background-color: #37adfc;
+}
+
+/* Remove (X) Button */
+.fav-remove-btn {
+  background: rgba(255, 255, 255, 0.9);
+  color: #c0392b;
+  border: none;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  transition: background 0.2s ease;
+}
+
+.fav-remove-btn:hover {
+  background: #e74c3c;
+  color: white;
+}
+
+/*  Responsive  */
+@media (max-width: 600px) {
+  .weather-box h2 img {
+    width: 70px;
+    height: 70px;
+  }
+
+  #cityInput {
+    width: 150px;
+  }
+
+  #searchContainer {
+    flex-direction: column;
+  }
+}
+
+#geoBtn {
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  background-color: #2c3e50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#geoBtn:hover {
+  background-color: #1a252f;
+  transform: scale(1.03);
+}
+
+.geo-icon {
+  font-size: 20px;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0%   { transform: scale(1); opacity: 1; }
+  50%  { transform: scale(1.2); opacity: 0.7; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.forecast-container h3 {
+  width: 100%;
+  text-align: center;
+  margin-top: 30px; 
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+
+.forecast-day {
+  text-align: center;
+  margin: 10px;
+  flex: 1 1 100px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgba(255,255,255,0.2);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  color: inherit;
+}
+
+.details-panel {
+  margin-top: 10px;
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 10px;
+  border-radius: 10px;
+  animation: slideDown 0.4s ease;
+}
+
+@keyframes slideDown{
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.detail-row {
+  margin: 5px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.details-panel h4 {
+  margin-bottom: 8px;
+  text-align:  left;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+/* Dark Mode Toggle Button */
+.theme-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: #444;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 100;
+  transition: background-color 0.3s ease;
+}
+
+.theme-toggle:hover {
+  background-color: #666;
+}
+
+
+
+/* Dark mode */
+body.dark-mode {
+  background-color: linear-gradient(135deg, #2b2b2b 0%, #1e1e1e 100%);
+  color: #f0f0f0;
+}
+
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode p{
+  color: #e0e0e0;
+}
+
+body.dark-mode .weather-box {
+  background-color: rbga(40, 40, 40, 0.95);
+  color: #fff;
+  border: 1px solid #444;
+}
+
+body.dark-mode .box-clear,
+body.dark-mode .box-clouds,
+body.dark-mode .box-rain,
+body.dark-mode .box-snow,
+body.dark-mode .box-thunderstorm {
+  background-color:  rgba(30, 30, 30, 0.95);
+  columns: #fff;
+}
+
+body.dark-mode .fav-city-btn,
+body.dark-mode .fav-remove-btn,
+body.dark-mode #saveFavoriteBtn,
+body.dark-mode #searchBtn {
+  background-color: #555;
+  color: #fff;
+}
+
+body.dark-mode .details-panel {
+  background-color: rgba(60, 60, 60, 0.9);
+}
+
+#searchContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+ 
+}
+
+#inputRow {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;;
+}
+
+#inputWrapper {
+  position: relative;
+  width: 200px;
+}
+
+#cityInput {
+  padding: 10px;
+  font-size: 16px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.dropdown-history {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 0 0 5px 5px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  z-index: 1000;
+  display: none;
+  max-height: 160px;
+  overflow-y: auto;
+}
+
+.dropdown-history div {
+  padding: 8px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.dropdown-history div:hover {
+  background-color: #f0f0f0;
+}
+
+.dropdown-history .remove {
+  color: red;
+  font-weight: bold;
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.weather-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.weather-header .temperature {
+  font-size: 40px;
+  font-weight: bold;
+  color: inherit;
+}
+
+.weather-header img {
+  width: 85px;
+  height: 85px;
+  animation: floatIcon 3s ease-in-out infinite;
+}
+
+.weather-header .city-name {
+  font-size: 20px;
+  font-weight: 500;
+}
