@@ -7,7 +7,7 @@ The project was designed with a strong focus on UI/UX and mobile responsiveness.
 
 ## 🌟 Live Demo
 
-🔗 [Try the App](https://yourusername.github.io/tempsphere/)  
+🔗 [Try the App](https://lambisj.github.io/tempsphere/)  
 
 ## ✨ Features
 
