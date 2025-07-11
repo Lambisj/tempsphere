@@ -62,20 +62,55 @@ function displayWeather(data) {
   weatherDiv.className = `weather-box box-${condition}` || 'weather-box box-default';
 
   weatherDiv.innerHTML = `
-  <div class="weather-header">
-    <div class="temperature">${Math.round(data.main.temp)}°C</div>
-    <img src="${iconUrl}" alt="${data.weather[0].description}" />
-    <div class="city-name">${data.name}, ${data.sys.country}</div>
-  </div>
-  <p>Weather: ${data.weather[0].description}</p>
-  <p>Humidity: ${data.main.humidity}%</p>
-  <p>Wind: ${data.wind.speed} m/s</p>
-  <p>Sunrise: ${sunrise}</p>
-  <p>Sunset: ${sunset}</p>
+      <div class="weather-header">
+      <div class="temperature">${Math.round(data.main.temp)}°C</div>
+      <img src="${iconUrl}" alt="${data.weather[0].description}" />
+      <div class="city-name">${data.name}, ${data.sys.country}</div>
+    
+      </div>
+      <div id="map" style="height: 250px; margin: 15px 0;"></div>
+      <p>Weather: ${data.weather[0].description}</p>
+      <p>Huminity: ${data.main.humidity}%</p>
+      <p>Wind: ${data.wind.speed} m/s</p>
+      <p>Sunrise: ${sunrise}</p>
+      <p>Sunset: ${sunset}</p>
 
-  <button id="saveFavoriteBtn">Save as Favorite</button>
-  <div id="forecast" class="forecast-container"></div> 
-`;
+      <button id="saveFavoriteBtn">Save as Favorite</button>
+      <div id="forecast" class="forecast-container"></div> 
+  `;
+    // Remove previous map if exists
+    if (window.weatherMap) {
+      window.weatherMap.remove();
+    }
+    // Initialize new map
+    window.weatherMap = L.map('map').setView([data.coord.lat, data.coord.lon], 10);
+    // Add tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(weatherMap);
+    // Add marker
+    L.marker([data.coord.lat, data.coord.lon])
+      .addTo(weatherMap)
+      .bindPopup(`${data.name}, ${data.sys.country}`)
+      .openPopup();
+
+      // Detect map click to get weather at clicked location
+  weatherMap.on('click', function(e) {
+    const { lat, lon } = { lat: e.latlng.lat, lon: e.latlng.lng };
+
+        // Use OpenWeatherMap reverse geocoding API
+        fetch(`https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${apiKey}`)
+          .then(res => res.json())
+          .then(locations => {
+            if (locations.length > 0) {
+              fetchWeatherByCoords(lat, lon);
+
+            } else {
+              alert("Couldn't find city at this location.");
+            }
+          })
+          .catch(() => alert("Failed to get location info."));
+  });
 
 
   document.getElementById('saveFavoriteBtn').addEventListener('click', () => {
@@ -411,15 +446,36 @@ function removeCityFromHistory(city) {
 
 function fetchWeatherByCoords(lat, lon) {
   fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`)
-    .then(res => res.json())
+    .then(res => {
+      if (!res.ok) throw new Error('Location weather fetch failed');
+      return res.json();
+    })
     .then(data => {
+      currentCity = data.name; // For the forecast
       displayWeather(data);
       setBackgroundAndBox(data.weather[0].main.toLowerCase());
       saveCityToHistory(data.name);
     })
     .catch(err => {
-      alert("Failed to get weather for your location");
-      console.error(err);
+      alert('Could not get weather for your location.');
+      console.error('Geolocation weather error:', err);
     });
 }
 
+
+document.getElementById('geoBtn').addEventListener('click', () => {
+  if ('geolocation' in navigator) {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const { latitude, longitude } = position.coords;
+        fetchWeatherByCoords(latitude, longitude);
+      },
+      error => {
+        alert('Geolocation failed or denied.');
+        console.error(error.message);
+      }
+    );
+  } else {
+    alert('Geolocation not supported by your browser.');
+  }
+});
